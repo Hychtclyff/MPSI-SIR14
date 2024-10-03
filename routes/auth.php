@@ -9,6 +9,10 @@ use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
+use App\Http\Controllers\FamilyMemberController;
+use App\Http\Controllers\Service\CriticismController;
+use App\Http\Controllers\Service\DocumentController;
+use App\Http\Controllers\Service\ReportGuestController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('guest')->group(function () {
@@ -56,4 +60,37 @@ Route::middleware('auth')->group(function () {
 
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
         ->name('logout');
+
+
+    Route::post('surat-pengantar', [DocumentController::class, 'store'])->name('surat-pengantar.store');
+    Route::post('saran-kritik', [CriticismController::class, 'store'])->name('saran-kritik.store');
+    Route::post('lapor', [ReportGuestController::class, 'store'])->name('lapor.store');
+
+    Route::post('new-member', [FamilyMemberController::class, 'store'])->name('new-member.store');
+
+    Route::post('/dashboard/profile-edit/member-id={id}', [FamilyMemberController::class, 'update'])->name('edit-member.update');
+
+
+    Route::get('/dashboard/new-member/user={user_id}', [FamilyMemberController::class, 'index'])->name('new-member.index');
+
+
+    Route::put('/ruang-kerja/konfirmasi/surat/id={id}', [DocumentController::class, 'update'])->name('document.update');
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Route::post('saran-kritik', [ 'store']);

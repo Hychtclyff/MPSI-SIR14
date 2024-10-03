@@ -1,3 +1,4 @@
+import Editsvg from "@/Components/EditButtonSvg";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import GuestLayout from "@/Layouts/GuestLayout";
 import InputError from "@/Components/InputError";
@@ -6,28 +7,33 @@ import PrimaryButton from "@/Components/PrimaryButton";
 import TextInput from "@/Components/TextInput";
 import SelectInput from "@/Components/SelectInput";
 import Modal from "@/Components/Modal";
-
-import { Head, Link, useForm } from "@inertiajs/react";
 import { useRef, useState } from "react";
+import { Head, Link, useForm } from "@inertiajs/react";
 
-export default function SuratPengantar({ documents }) {
+export default function Dashboard({ data }) {
+    return (
+        <AuthenticatedLayout>
+            <Head title="SIR14 | Dasboard" />
+
+            <BodyContent familyData={data} />
+        </AuthenticatedLayout>
+    );
+}
+
+function BodyContent({ familyData }) {
     const [alert, setAlert] = useState(false);
     const { data, setData, post, processing, errors, reset } = useForm({
-        nama: "",
-        email: "",
-        tanggal_lahir: "",
-        tempat_lahir: "",
-        jenis_kelamin: "",
-        status_pernikahan: "",
-        ktp_kk: "",
-        kewarganegaraan: "",
-        agama: "",
-        pekerjaan: "",
-        alamat: "",
-        keperluan: "",
-        no_surat: `RT/01/RW/03/${new Date().getFullYear()}/${
-            documents.length + 1
-        }`,
+        pp: "",
+        nama: familyData.nama,
+        tempat_lahir: familyData.tempat_lahir,
+        tanggal_lahir: familyData.tanggal_lahir,
+        jenis_kelamin: familyData.jenis_kelamin,
+        status_perkawinan: familyData.status_perkawinan,
+        nik: familyData.nik,
+        kewarganegaraan: familyData.kewarganegaraan,
+        agama: familyData.agama,
+        pekerjaan: familyData.pekerjaan,
+        status_dalam_keluarga: familyData.status_dalam_keluarga,
     });
 
     const alertActive = () => {
@@ -40,72 +46,144 @@ export default function SuratPengantar({ documents }) {
     };
 
     const submit = (e) => {
-        e.preventDefault(); // Mencegah pengiriman form secara default
-        // const form = document.getElementById("my-form");
-        // const data = new FormData(form);
-        // const action =
-        //     "https://script.google.com/macros/s/AKfycbx4QVXmKIeD8BGZdNrflpRqDWFheFNc5bxoDbCah_sRV-G6HQp9gr6sBiN2IdPijDz-Bw/exec";
-
-        // Kirim data ke backend untuk validasi
-        post(route("surat-pengantar"), {
+        e.preventDefault();
+        post(route("edit-member.update", familyData.id), {
             onSuccess: () => {
                 alertActive();
                 form.reset();
-                // fetch(action, {
-                //     method: "POST",
-                //     body: data,
-                // })
-                //     .then((response) => response.json())
-                //     .then(() => {
-
-                //     })
-                //     .catch((error) => {
-                //         console.error("Error:", error);
-                //         alert("Gagal mengirim data ke Google Script.");
-                //     });
             },
             onError: (errors) => {
                 console.error("Validasi gagal:", errors);
-                // alert(
-                //     "Terdapat kesalahan validasi. Periksa kembali data yang diisi."
-                // );
             },
         });
     };
-
     return (
         <>
-            <AuthenticatedLayout
-                header={
-                    <h2 className="font-semibold text-xl text-gray-800 leading-tight">
-                        Formulir ini diperlukan untuk meproses permohonan anda
-                    </h2>
-                }
-            >
-                <GuestLayout className="lg:min-w-[50rem] lg:min-h-[40rem] mb-28">
-                    <Head title="Surat Pengantar" />
+            <section>
+                <div className="container relative flex flex-col  items-center justify-center mx-auto account mt-14 py-10 gap-10 ">
+                <button
+                        onClick={() => {
+                            window.history.back();
+                        }}
+                        className="absolute top-44 left-20 py-2 px-4 bg-[#9AD7F5]/50 hover:bg-[#9AD7F5]/25 transition shadow-inner rounded-2xl"
+                    >
+                        Kembali
+                    </button>
+                    <div className="header text-5xl  flex flex-col justify-center items-center font-extrabold gap-2">
+                        <span>Edit Profile</span>
+                        <svg
+                            width="249"
+                            height="12"
+                            viewBox="0 0 249 12"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                        >
+                            <g filter="url(#filter0_i_120_130)">
+                                <path
+                                    d="M22.5 0.311035L248.5 11.811H0L22.5 0.311035Z"
+                                    fill="#9AD7F5"
+                                />
+                            </g>
+                            <defs>
+                                <filter
+                                    id="filter0_i_120_130"
+                                    x="0"
+                                    y="0.311035"
+                                    width="248.5"
+                                    height="15.5"
+                                    filterUnits="userSpaceOnUse"
+                                    color-interpolation-filters="sRGB"
+                                >
+                                    <feFlood
+                                        flood-opacity="0"
+                                        result="BackgroundImageFix"
+                                    />
+                                    <feBlend
+                                        mode="normal"
+                                        in="SourceGraphic"
+                                        in2="BackgroundImageFix"
+                                        result="shape"
+                                    />
+                                    <feColorMatrix
+                                        in="SourceAlpha"
+                                        type="matrix"
+                                        values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+                                        result="hardAlpha"
+                                    />
+                                    <feOffset dy="4" />
+                                    <feGaussianBlur stdDeviation="2" />
+                                    <feComposite
+                                        in2="hardAlpha"
+                                        operator="arithmetic"
+                                        k2="-1"
+                                        k3="1"
+                                    />
+                                    <feColorMatrix
+                                        type="matrix"
+                                        values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"
+                                    />
+                                    <feBlend
+                                        mode="normal"
+                                        in2="shape"
+                                        result="effect1_innerShadow_120_130"
+                                    />
+                                </filter>
+                            </defs>
+                        </svg>
+                    </div>
 
-                    <div className="container flex flex-col gap-y-24 px-16">
-                        <header>
-                            <div className="container relative text-center text-xl font-extrabold flex flex-col justify-center items-center gap-3 mt-10">
-                                <button
-                                    onClick={() => {
-                                        window.history.back();
-                                    }}
-                                    className="absolute top-0 left-0 font-light py-2 px-4 bg-[#9AD7F5]/50 hover:bg-[#9AD7F5]/25 transition shadow-inner rounded-2xl"
-                                >
-                                    Kembali
-                                </button>
-                                <span>Surat Pengantar</span>
-                            </div>
-                        </header>
-                        <main>
-                            <div className="container pb-20">
-                                <form
-                                    id="my-form"
-                                    // method="POST"
-                                    onSubmit={submit}
-                                >
+                    <div className="container mx-auto py-20 shadow-[#9AD7F5] shadow-lg bg-white rounded-xl">
+                        <form id="my-form" method="POST" onSubmit={submit}>
+                            <div className=" flex justify-evenly  ">
+                                <div className=" w-1/4 flex flex-col p-3 gap-3 just items-center ">
+                                    <img src="/img/stickman.png" alt="" />
+                                    <div className="flex gap-10 justify-center my-2">
+                                        <TextInput
+                                            id="pp"
+                                            type="file"
+                                            name="pp"
+                                            value={data.pp}
+                                            className="mt-1 block w-3/4 bg-[#9AD7F5]/50 shadow-inner"
+                                            autoComplete="name"
+                                            isFocused={true}
+                                            onChange={(e) =>
+                                                setData("pp", e.target.value)
+                                            }
+                                        />
+                                    </div>
+                                    <InputError
+                                        message={errors.nama}
+                                        className="mt-2"
+                                    />
+                                </div>
+                                <div className="container w-1/2">
+                                    <div className="flex flex-col justify-center">
+                                        {/* No. KTP / KK */}
+                                        <div className="flex gap-10 justify-start my-2">
+                                            <InputLabel
+                                                className="flex items-center justify-center w-1/4 text-lg"
+                                                htmlFor="nik"
+                                                value="NIK"
+                                            />
+                                            <TextInput
+                                                id="nik"
+                                                type="text"
+                                                name="nik"
+                                                value={data.nik}
+                                                className="mt-1 block w-3/4 bg-[#9AD7F5]/50 shadow-inner"
+                                                onChange={(e) =>
+                                                    setData(
+                                                        "nik",
+                                                        e.target.value
+                                                    )
+                                                }
+                                            />
+                                        </div>
+                                        <InputError
+                                            message={errors.nik}
+                                            className="mt-2"
+                                        />
+                                    </div>
                                     <div className="flex flex-col justify-center ">
                                         {/* Nama */}
                                         <div className="flex gap-10 justify-start my-2">
@@ -136,34 +214,6 @@ export default function SuratPengantar({ documents }) {
                                         />
                                     </div>
                                     <div className="flex flex-col justify-center ">
-                                        {/* email */}
-                                        <div className="flex gap-10 justify-start my-2">
-                                            <InputLabel
-                                                className="flex items-center justify-center w-1/4 text-lg"
-                                                htmlFor="email"
-                                                value="Email"
-                                            />
-                                            <TextInput
-                                                id="email"
-                                                type="email"
-                                                name="email"
-                                                value={data.email}
-                                                className="mt-1 block w-3/4 bg-[#9AD7F5]/50 shadow-inner"
-                                                autoComplete="email"
-                                                onChange={(e) =>
-                                                    setData(
-                                                        "email",
-                                                        e.target.value
-                                                    )
-                                                }
-                                            />
-                                        </div>
-                                        <InputError
-                                            message={errors.email}
-                                            className="mt-2"
-                                        />
-                                    </div>
-                                    <div className="flex flex-col justify-center ">
                                         {/* tempatlahir */}
                                         <div className="flex gap-10 justify-start my-2">
                                             <InputLabel
@@ -187,22 +237,23 @@ export default function SuratPengantar({ documents }) {
                                             />
                                         </div>
                                         <InputError
-                                            message={errors.tempat_lahir}
+                                            message={errors.email}
                                             className="mt-2"
                                         />
                                     </div>
+
                                     <div className="flex flex-col justify-center">
                                         {/* Tempat & Tanggal Lahir */}
                                         <div className="flex gap-10 justify-start my-2">
                                             <InputLabel
                                                 className="flex items-center justify-center text-center w-1/4 text-lg"
-                                                htmlFor="tanggal_lahir"
+                                                htmlFor="ttl"
                                                 value="Tanggal Lahir"
                                             />
                                             <TextInput
-                                                id="tanggal_lahir"
+                                                id="ttl"
                                                 type="date"
-                                                name="tanggal_lahir"
+                                                name="ttl"
                                                 value={data.tanggal_lahir}
                                                 className="mt-1 block w-3/4 bg-[#9AD7F5]/50 shadow-inner"
                                                 autoComplete="bday"
@@ -240,11 +291,8 @@ export default function SuratPengantar({ documents }) {
                                                     )
                                                 }
                                             >
-                                                <option value="">
-                                                    Pilih Jenis Kelamin
-                                                </option>
-                                                <option value="Laki-Laki">
-                                                    Laki-Laki
+                                                <option value="Laki-laki">
+                                                    Laki-laki
                                                 </option>
                                                 <option value="Perempuan">
                                                     Perempuan
@@ -262,30 +310,32 @@ export default function SuratPengantar({ documents }) {
                                         <div className="flex gap-10 justify-start my-2">
                                             <InputLabel
                                                 className="flex items-center justify-center w-1/4 text-lg"
-                                                htmlFor="status_pernikahan"
+                                                htmlFor="status_perkawinan"
                                                 value="Status Perkawinan"
                                             />
                                             <SelectInput
-                                                id="status_pernikahan"
-                                                name="status_pernikahan"
-                                                value={data.status_pernikahan}
+                                                id="status_perkawinan"
+                                                name="status_perkawinan"
+                                                value={data.status_perkawinan}
                                                 className="mt-1 block w-3/4 bg-[#9AD7F5]/50 shadow-inner"
                                                 onChange={(e) =>
                                                     setData(
-                                                        "status_pernikahan",
+                                                        "status_perkawinan",
                                                         e.target.value
                                                     )
                                                 }
                                             >
-                                                <option value="">status</option>
-                                                <option value="Menikah">
-                                                    Menikah
+                                                <option value="Kawin">
+                                                    Kawin
                                                 </option>
-                                                <option value="Belum Menikah">
-                                                    Belum Menikah
+                                                <option value="Belum Kawin">
+                                                    Belum Kawin
                                                 </option>
                                                 <option value="Cerai Hidup">
-                                                    Cerai
+                                                    Cerai Hidup
+                                                </option>
+                                                <option value="Cerai Mati">
+                                                    Cerai Mati
                                                 </option>
                                             </SelectInput>
                                         </div>
@@ -300,22 +350,34 @@ export default function SuratPengantar({ documents }) {
                                         <div className="flex gap-10 justify-start my-2">
                                             <InputLabel
                                                 className="flex items-center justify-center w-1/4 text-lg"
-                                                htmlFor="nik"
-                                                value="nik"
+                                                htmlFor="family_status"
+                                                value="Status Dalam Keluarga"
                                             />
-                                            <TextInput
-                                                id="nik"
-                                                type="text"
-                                                name="nik"
-                                                value={data.nik}
+                                            <SelectInput
+                                                id="family_status"
+                                                name="family_status"
+                                                value={data.family_status}
                                                 className="mt-1 block w-3/4 bg-[#9AD7F5]/50 shadow-inner"
                                                 onChange={(e) =>
                                                     setData(
-                                                        "nik",
+                                                        "family_status",
                                                         e.target.value
                                                     )
                                                 }
-                                            />
+                                            >
+                                                <option value="Istri">
+                                                    Istri
+                                                </option>
+                                                <option value=" Anak">
+                                                    Anak
+                                                </option>
+                                                <option value="Suami">
+                                                    Suami
+                                                </option>
+                                                <option value="Lainya">
+                                                    lainya
+                                                </option>
+                                            </SelectInput>
                                         </div>
                                         <InputError
                                             message={errors.ktp_kk}
@@ -407,80 +469,6 @@ export default function SuratPengantar({ documents }) {
                                         />
                                     </div>
 
-                                    <div className="flex flex-col justify-center">
-                                        {/* Alamat */}
-                                        <div className="flex gap-10 justify-start my-2">
-                                            <InputLabel
-                                                className="flex items-center justify-center w-1/4 text-lg"
-                                                htmlFor="alamat"
-                                                value="Alamat"
-                                            />
-                                            <TextInput
-                                                id="alamat"
-                                                type="text"
-                                                name="alamat"
-                                                value={data.alamat}
-                                                className="mt-1 block w-3/4 bg-[#9AD7F5]/50 shadow-inner"
-                                                onChange={(e) =>
-                                                    setData(
-                                                        "alamat",
-                                                        e.target.value
-                                                    )
-                                                }
-                                            />
-                                        </div>
-                                        <InputError
-                                            message={errors.alamat}
-                                            className="mt-2"
-                                        />
-                                    </div>
-
-                                    <div className="flex flex-col justify-center">
-                                        {/* Keperluan */}
-                                        <div className="flex gap-10 justify-start my-2">
-                                            <InputLabel
-                                                className="flex items-center justify-center w-1/4 text-lg"
-                                                htmlFor="keperluan"
-                                                value="Keperluan"
-                                            />
-                                            <TextInput
-                                                id="keperluan"
-                                                type="text"
-                                                name="keperluan"
-                                                value={data.keperluan}
-                                                className="mt-1 block w-3/4 bg-[#9AD7F5]/50 shadow-inner"
-                                                onChange={(e) =>
-                                                    setData(
-                                                        "keperluan",
-                                                        e.target.value
-                                                    )
-                                                }
-                                            />
-                                        </div>
-                                        <InputError
-                                            message={errors.keperluan}
-                                            className="mt-2"
-                                        />
-                                    </div>
-                                    <div className="flex flex-col justify-center">
-                                        {/* Keperluan */}
-                                        <div className="flex gap-10 justify-start my-2">
-                                            <TextInput
-                                                id="no_surat"
-                                                type="hidden"
-                                                name="no_surat"
-                                                value={data.no_surat}
-                                                className="mt-1 block w-3/4 bg-[#9AD7F5]/50 shadow-inner"
-                                                onChange={(e) =>
-                                                    setData(
-                                                        "no_surat",
-                                                        e.target.value
-                                                    )
-                                                }
-                                            />
-                                        </div>
-                                    </div>
-
                                     <div className="flex items-center justify-end mt-4">
                                         <PrimaryButton
                                             className="ms-4"
@@ -489,30 +477,12 @@ export default function SuratPengantar({ documents }) {
                                             Submit
                                         </PrimaryButton>
                                     </div>
-                                </form>
-                            </div>
-                            <Modal show={alert} onClose={closeModal}>
-                                <div className="p-6">
-                                    <h2 className="text-lg font-medium text-gray-900">
-                                        Permintaan Anda telah dikirim.
-                                    </h2>
-
-                                    <p className="mt-1 text-sm text-gray-600">
-                                        Silakan cek email Anda secara berkala
-                                        untuk informasi lebih lanjut.
-                                    </p>
-
-                                    <div className="mt-6 flex justify-end">
-                                        <PrimaryButton onClick={closeModal}>
-                                            Oke
-                                        </PrimaryButton>
-                                    </div>
                                 </div>
-                            </Modal>
-                        </main>
+                            </div>
+                        </form>
                     </div>
-                </GuestLayout>
-            </AuthenticatedLayout>
+                </div>
+            </section>
         </>
     );
 }

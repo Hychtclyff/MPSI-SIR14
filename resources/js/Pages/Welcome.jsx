@@ -2,7 +2,7 @@ import PrimaryButton from "@/Components/PrimaryButton";
 import { Button } from "@headlessui/react";
 import { Link, Head } from "@inertiajs/react";
 
-export default function Welcome({ auth }) {
+export default function Welcome({ auth, saran }) {
     return (
         <>
             <Head title="SIR14" />
@@ -236,8 +236,9 @@ export default function Welcome({ auth }) {
                                                 </footer>
                                             </a>
                                         </div>
-                                        <div className="surat-pengantar  bg-[#10181E] w-56 h-56 rounded-xl flex flex-col justify-between shadow-xl  shadow-[#9AD7F5]">
-                                            <a href="">
+
+                                        <div className="saran-kritik bg-[#10181E] w-56 h-56 rounded-xl flex flex-col justify-between shadow-xl  shadow-[#9AD7F5]">
+                                            <a href={route("saran-kritik")}>
                                                 <main className="flex justify-center">
                                                     <img
                                                         src="/img/kritik.png"
@@ -250,8 +251,9 @@ export default function Welcome({ auth }) {
                                                 </footer>
                                             </a>
                                         </div>
+
                                         <div className="surat-pengantar  bg-[#10181E] w-56 h-56 rounded-xl flex flex-col justify-between shadow-xl  shadow-[#9AD7F5]">
-                                            <a href="">
+                                            <a href={route("lapor")}>
                                                 <main className="flex justify-center">
                                                     <img
                                                         src="/img/lapor.png"
@@ -260,7 +262,7 @@ export default function Welcome({ auth }) {
                                                     />
                                                 </main>
                                                 <footer className="py-2 border-t-4 border-white shadow-inner text-white text-center">
-                                                    <h1>Surat Pengantar</h1>
+                                                    <h1>Lapor 1 x 24 Jam</h1>
                                                 </footer>
                                             </a>
                                         </div>
@@ -276,23 +278,14 @@ export default function Welcome({ auth }) {
                                     <div className="box-saran  gap-10 h-96 mt-5 flex justify-evenly items-center ">
                                         <div className="kotak-saran  shadow bg-white shadow-[#9AD7F5] p-5 w-1/2 rounded-xl ">
                                             <ul className="p-5 flex-col flex overflow-y-scroll gap-3 h-80">
-                                                <li className="py-5 px-10 text-start shadow-lg  bg-[#9AD7F5] rounded-xl ">
-                                                    Tolong perbanyak tempat
-                                                    sampah...
-                                                </li>
-
-                                                <li className="py-5 px-10 text-start shadow-lg  bg-[#9AD7F5] rounded-xl ">
-                                                    penampungan sampah penuh pak
-                                                </li>
-                                                <li className="py-5 px-10 text-start shadow-lg  bg-[#9AD7F5] rounded-xl ">
-                                                    Acara 17 an seruuu
-                                                </li>
-                                                <li className="py-5 px-10 text-start shadow-lg  bg-[#9AD7F5] rounded-xl ">
-                                                    infokan goro
-                                                </li>
-                                                <li className="py-5 px-10 text-start shadow-lg  bg-[#9AD7F5] rounded-xl ">
-                                                    Acara 17 an seruuu
-                                                </li>
+                                                {saran.map((e) => (
+                                                    <li
+                                                        key={e.id}
+                                                        className="py-5 px-10 text-start shadow-lg bg-[#9AD7F5] rounded-xl"
+                                                    >
+                                                        {e.criticism}
+                                                    </li>
+                                                ))}
                                             </ul>
                                         </div>
                                         <img
@@ -324,6 +317,7 @@ export default function Welcome({ auth }) {
                                 </li>
                             </ul>
                         </div>
+
                         <div className="alamat flex flex-col gap-5 text-wrap  items-end">
                             <p className=" text-pretty w-1/2 text-right">
                                 RT 14,Kel.Rawasari,Kec.Alam Barajo, Rw. Sari,

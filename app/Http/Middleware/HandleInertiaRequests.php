@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\Criticism;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
 
@@ -13,6 +14,7 @@ class HandleInertiaRequests extends Middleware
      * @var string
      */
     protected $rootView = 'app';
+    
 
     /**
      * Determine the current asset version.
@@ -34,6 +36,7 @@ class HandleInertiaRequests extends Middleware
             'auth' => [
                 'user' => $request->user(),
             ],
+
         ];
     }
 }
