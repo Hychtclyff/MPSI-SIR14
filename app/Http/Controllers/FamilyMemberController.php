@@ -99,8 +99,10 @@ class FamilyMemberController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(FamilyMember $familyMember)
+    public function destroy(FamilyMember $familyMember, $id)
     {
-        //
+        $row = FamilyMember::findOrFail($id);
+        $row->delete();
+        return back();
     }
 }

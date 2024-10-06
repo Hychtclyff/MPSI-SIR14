@@ -14,7 +14,9 @@ return new class extends Migration
         Schema::create('report_guests', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-
+            $table->boolean('cek_out')->default(false);                // Untuk menyimpan nama
+                         // Untuk menyimpan nama
+            $table->string('response')->nullable();                // Untuk menyimpan nama
             $table->string('nama');                // Untuk menyimpan nama
             $table->string('asal');                // Untuk menyimpan asal
             $table->string('handphone');

@@ -15,6 +15,8 @@ class ReportGuest extends Model
         'handphone',
         'jenis_kelamin',
         'user_id',
+        'status',
+        'response',
+        'cek_out',
     ];
-    
 }

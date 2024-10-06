@@ -25,7 +25,9 @@ class Documents extends Model
         'pekerjaan',
         'alamat',
         'keperluan',
-        'email',    
+        'email',
+        'edit',
+        'response'
     ];
     public function user()
     {

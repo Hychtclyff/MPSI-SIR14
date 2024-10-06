@@ -2,7 +2,7 @@ import PrimaryButton from "@/Components/PrimaryButton";
 import { Button } from "@headlessui/react";
 import { Link, Head } from "@inertiajs/react";
 
-export default function Welcome({ auth, saran }) {
+export default function Welcome({ auth, saran, announcements }) {
     return (
         <>
             <Head title="SIR14" />
@@ -171,47 +171,38 @@ export default function Welcome({ auth, saran }) {
                                     <span className="text-3xl font-bold ">
                                         Informasi
                                     </span>
-                                    <div className="bulletin  flex gap-5">
-                                        <div className="desc-news w-3/4  bg-slate-100 shadow    shadow-[#9AD7F5] rounded-md p-5 flex flex-col justify-between">
-                                            <header className="text-2xl font-medium ">
-                                                <h1>PERHATIAN!</h1>
-                                            </header>
-                                            <main>
-                                                <p className="indent-4 text-justify">
-                                                    MARI JAGA LINGKUNGAN KITA
-                                                    Belakangan ini, kasus
-                                                    pencurian semakin marak.
-                                                    Untuk mengantisipasi hal
-                                                    tersebut, kami menghimbau
-                                                    seluruh warga untuk:
-                                                    Meningkatkan kewaspadaan:
-                                                    Perhatikan orang asing yang
-                                                    berkeliaran di sekitar
-                                                    rumah, laporkan jika ada
-                                                    yang mencurigakan.
-                                                    Memastikan keamanan rumah:
-                                                    Pasang kunci ganda, gunakan
-                                                    CCTV, dan aktifkan alarm
-                                                    jika ada. Saling menjaga:
-                                                    Bentuk kelompok ronda atau
-                                                    siskamling untuk patroli
-                                                    rutin. Berkoordinasi dengan
-                                                    pihak keamanan: Laporkan
-                                                    setiap kejadian kehilangan
-                                                    atau percobaan pencurian
-                                                    kepada pihak berwajib.
-                                                </p>
-                                            </main>
-                                            <footer className="py-2 border-t-4 border-white shadow-inner ">
-                                                <h1>Ketua RT & Pemuda</h1>
-                                            </footer>
-                                        </div>
-                                        <div className="img-news w-1/4 flex align-middle bg-slate-100 shadow-inner shadow-[#9AD7F5] rounded-md">
-                                            <img
-                                                src="/img/pencuri.jpeg"
-                                                alt="pencuri"
-                                            />
-                                        </div>
+                                    <div className="container max-h-[50vh] py-5 px-5 overflow-y-scroll flex flex-col gap-5">
+                                        {announcements.map((e, index) => {
+                                            return (
+                                                <div
+                                                    key={index}
+                                                    className="bulletin  flex gap-5 "
+                                                >
+                                                    <div className="desc-news w-3/4  bg-slate-100 shadow    shadow-[#9AD7F5] rounded-md p-5 flex flex-col justify-between">
+                                                        <header className="text-2xl font-medium ">
+                                                            <h1>{e.topic}</h1>
+                                                        </header>
+                                                        <main>
+                                                            <p className="indent-4 text-justify">
+                                                                {e.announcement}
+                                                            </p>
+                                                        </main>
+                                                        <footer className="py-2 border-t-4 border-white shadow-inner ">
+                                                            <h1>
+                                                                Ketua RT &
+                                                                Pemuda
+                                                            </h1>
+                                                        </footer>
+                                                    </div>
+                                                    <div className="img-news w-1/4 flex align-middle bg-slate-100 shadow-inner shadow-[#9AD7F5] rounded-md">
+                                                        <img
+                                                            src="/img/pencuri.jpeg"
+                                                            alt="pencuri"
+                                                        />
+                                                    </div>
+                                                </div>
+                                            );
+                                        })}
                                     </div>
                                 </div>
                             </section>

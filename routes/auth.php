@@ -10,11 +10,15 @@ use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use App\Http\Controllers\FamilyMemberController;
+use App\Http\Controllers\Rt\AnnouncementController;
 use App\Http\Controllers\Service\CriticismController;
 use App\Http\Controllers\Service\DocumentController;
 use App\Http\Controllers\Service\ReportGuestController;
+use App\Http\Controllers\UserController;
+use App\Models\Criticism;
 use Illuminate\Support\Facades\Route;
 
+// Route untuk pengguna tamu
 Route::middleware('guest')->group(function () {
     Route::get('register', [RegisteredUserController::class, 'create'])
         ->name('register');
@@ -39,6 +43,7 @@ Route::middleware('guest')->group(function () {
         ->name('password.store');
 });
 
+// Route untuk pengguna terautentikasi
 Route::middleware('auth')->group(function () {
     Route::get('verify-email', EmailVerificationPromptController::class)
         ->name('verification.notice');
@@ -61,36 +66,35 @@ Route::middleware('auth')->group(function () {
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
         ->name('logout');
 
-
+    // Route untuk surat pengantar
     Route::post('surat-pengantar', [DocumentController::class, 'store'])->name('surat-pengantar.store');
+    Route::put('surat-pengantar/edit/id={id}', [DocumentController::class, 'updateData'])->name('surat-pengantar.updateData');
+    Route::delete('surat-pengantar/destroye/id={id}', [DocumentController::class, 'destroy'])->name('surat-pengantar.destroy');
+    Route::put('/ruang-kerja/konfirmasi/surat/id={id}', [DocumentController::class, 'update'])->name('document.update');
+
+    // Route untuk saran dan kritik
     Route::post('saran-kritik', [CriticismController::class, 'store'])->name('saran-kritik.store');
+
+    // Route untuk laporan tamu
     Route::post('lapor', [ReportGuestController::class, 'store'])->name('lapor.store');
 
+    // Route untuk anggota keluarga
     Route::post('new-member', [FamilyMemberController::class, 'store'])->name('new-member.store');
-
     Route::post('/dashboard/profile-edit/member-id={id}', [FamilyMemberController::class, 'update'])->name('edit-member.update');
-
-
     Route::get('/dashboard/new-member/user={user_id}', [FamilyMemberController::class, 'index'])->name('new-member.index');
+    Route::delete('data-warga/delete/id={id}', [FamilyMemberController::class, 'destroy'])->name('data-warga.destroy');
 
+    // Route untuk laporan tamu
+    Route::put('/ruang-kerja/konfirmasi/guest/id={id}', [ReportGuestController::class, 'update'])->name('report-guest.update');
+    Route::put('/dashboar/cek-out/guest/id={id}', [ReportGuestController::class, 'cekOut'])->name('report-guest.cekOut');
 
-    Route::put('/ruang-kerja/konfirmasi/surat/id={id}', [DocumentController::class, 'update'])->name('document.update');
+    // Route untuk pengumuman
+    Route::post('announcement/create', [AnnouncementController::class, 'store'])->name('announcement.store');
+    Route::put('announcement/update/id={id}', [AnnouncementController::class, 'update'])->name('announcement.update');
+    Route::delete('announcement/delete/id={id}', [AnnouncementController::class, 'destroy'])->name('announcement.destroy');
+
+    Route::delete('criticism/delete/id={id}', [CriticismController::class, 'destroy'])->name('criticism.destroy');
+
+    Route::put('/users/update/id/{id}', [UserController::class, 'update',])->name('user.update');
+    Route::delete('/users/delete/id/{id}', [UserController::class, 'destroy',])->name('user.destroy');
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// Route::post('saran-kritik', [ 'store']);

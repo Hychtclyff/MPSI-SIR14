@@ -26,7 +26,11 @@ return new class extends Migration
             $table->string('nik', 16)->unique(); // Nomor Induk Kependudukan, dengan panjang 16 karakter
             $table->string('kewarganegaraan')->default('Indonesia'); // Kewarganegaraan, default 'Indonesia'
             $table->string('agama'); // Agama
-            $table->string('pekerjaan'); // Pekerjaan
+            $table->string('pekerjaan');
+            // belum di migration `
+            $table->text('response')->nullable();
+            $table->boolean('edit')->default(false); // Status surat
+            // Pekerjaan
             $table->text('alamat'); // Alamat
             $table->text('keperluan'); // Keperluan pembuatan surat
             $table->string('email'); // Email warga (opsional)

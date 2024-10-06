@@ -109,7 +109,7 @@ function BodyContent({ family_member, user_id, reqDoc, repGuest }) {
             <section>
                 <div className="container relative flex flex-col  items-center justify-center mx-auto account mt-14 py-10 gap-10 ">
                     <div className="header text-5xl  flex flex-col justify-center items-center font-extrabold gap-2">
-                        <span>Ruang Kerja</span>
+                        <span>Ruang Kerja Admin</span>
                         <svg
                             width="249"
                             height="12"
@@ -185,10 +185,22 @@ function BodyContent({ family_member, user_id, reqDoc, repGuest }) {
                                 <span>Pengumuman</span>
                             </a>
                         </div>
-                        <div className="account flex flex-col gap-10 text-xl shadow-lg p-11 bg-white rounded-2xl w-56 h-56  shadow-[#9AD7F5]">
+                        <div className="data flex flex-col gap-10 text-xl shadow-lg p-11 bg-white rounded-2xl w-56 h-56  shadow-[#9AD7F5]">
                             <a href={route("data.index")}>
                                 <img src="/img/lapor.png" alt="profile" />
                                 <span>Data Warga</span>
+                            </a>
+                        </div>
+                        <div className="krtik flex flex-col gap-3 justify-center items-center text-xl shadow-lg  p-10 bg-white rounded-2xl w-56 h-56  shadow-[#9AD7F5]">
+                            <a href={route("criticism.index")}>
+                                <img src="/img/kritik.png" alt="kritik" />
+                                <span>Saran & Kritik</span>
+                            </a>
+                        </div>
+                        <div className="data flex flex-col gap-10 text-xl shadow-lg p-11 bg-white rounded-2xl w-56 h-56  shadow-[#9AD7F5]">
+                            <a href={route("DataUser.index")}>
+                                <img src="/img/user-icon.jpeg" alt="profile" />
+                                <span>User</span>
                             </a>
                         </div>
                     </div>

@@ -70,9 +70,20 @@ export default function Authenticated({ header, children }) {
                                         <>
                                             {" "}
                                             <Dropdown.Link
-                                            href={route("workshop")}
+                                                href={route("workshop")}
                                             >
                                                 Ruang Kerja
+                                            </Dropdown.Link>
+                                        </>
+                                    )}
+
+                                    {user.role == "admin" && (
+                                        <>
+                                            {" "}
+                                            <Dropdown.Link
+                                                href={route("workshop-admin")}
+                                            >
+                                                Ruang Kerja Admin
                                             </Dropdown.Link>
                                         </>
                                     )}

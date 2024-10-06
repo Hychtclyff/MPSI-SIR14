@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Service;
 
 use App\Http\Controllers\Controller;
 use App\Models\ReportGuest;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -25,5 +26,30 @@ class ReportGuestController extends Controller
 
         // Mengembalikan respon, misalnya mengarahkan kembali ke halaman sebelumnya
         return redirect()->intended(route('lapor'));
+    }
+    public function update(Request $request, $id): RedirectResponse
+    {
+
+        $validated = $request->validate([
+            'response' => "string|required",
+        ]);
+        $validated['status'] = true;
+        $row = ReportGuest::findOrFail($id);
+
+
+        $row->update($validated);
+
+        return back();
+    }
+
+    public function cekOut(Request $request, $id): RedirectResponse
+    {
+
+        $row = ReportGuest::findOrFail($id);
+        $validated['cek_out'] = true;
+
+        $row->update($validated);
+
+        return back();
     }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Service;
 
 use App\Http\Controllers\Controller;
 use App\Models\Criticism;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class CriticismController extends Controller
@@ -24,5 +25,13 @@ class CriticismController extends Controller
 
 
         return redirect()->intended(route('saran-kritik'));
+    }
+
+    public function destroy(Request $request, $id): RedirectResponse
+    {
+
+        $row = Criticism::findOrFail($id);
+        $row->delete();
+        return back();
     }
 }

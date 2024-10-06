@@ -19,7 +19,7 @@ export default function SuratPengantar({ documents }) {
         tempat_lahir: "",
         jenis_kelamin: "",
         status_pernikahan: "",
-        ktp_kk: "",
+        nik: "",
         kewarganegaraan: "",
         agama: "",
         pekerjaan: "",
@@ -40,35 +40,13 @@ export default function SuratPengantar({ documents }) {
     };
 
     const submit = (e) => {
-        e.preventDefault(); // Mencegah pengiriman form secara default
-        // const form = document.getElementById("my-form");
-        // const data = new FormData(form);
-        // const action =
-        //     "https://script.google.com/macros/s/AKfycbx4QVXmKIeD8BGZdNrflpRqDWFheFNc5bxoDbCah_sRV-G6HQp9gr6sBiN2IdPijDz-Bw/exec";
-
-        // Kirim data ke backend untuk validasi
+        e.preventDefault();
         post(route("surat-pengantar"), {
             onSuccess: () => {
                 alertActive();
-                form.reset();
-                // fetch(action, {
-                //     method: "POST",
-                //     body: data,
-                // })
-                //     .then((response) => response.json())
-                //     .then(() => {
-
-                //     })
-                //     .catch((error) => {
-                //         console.error("Error:", error);
-                //         alert("Gagal mengirim data ke Google Script.");
-                //     });
             },
             onError: (errors) => {
                 console.error("Validasi gagal:", errors);
-                // alert(
-                //     "Terdapat kesalahan validasi. Periksa kembali data yang diisi."
-                // );
             },
         });
     };
@@ -318,7 +296,7 @@ export default function SuratPengantar({ documents }) {
                                             />
                                         </div>
                                         <InputError
-                                            message={errors.ktp_kk}
+                                            message={errors.nik}
                                             className="mt-2"
                                         />
                                     </div>
